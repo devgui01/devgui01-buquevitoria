@@ -2,25 +2,29 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para o Meu Amor 🌻</title>
     <style>
         :root {
-            --bg-color: #0b0a09;
-            --card-glass: rgba(20, 19, 17, 0.75);
-            --gold-accent: #facc15;
-            --text-main: #fafaf9;
-            --text-muted: #d6d3d1;
+            --bg-cotton: #f7f3ec;
+            --parchment: #fcf8ee;
+            --gold-accent: #d4af37;
+            --text-main: #3a2e2b;
+            --text-muted: #5c4e47;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-cotton);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 243, 205, 0.5) 0%, transparent 80%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.015) 0, rgba(0,0,0,0.015) 1px, transparent 0, transparent 40px);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: var(--text-main);
             min-height: 100vh;
@@ -28,10 +32,33 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 60px 20px;
+            padding: 20px 15px;
+            position: relative;
         }
 
-        /* Animação Cinematográfica de Pétalas/Brilhos Caindo no Fundo */
+        /* Girassóis decorativos nos cantos */
+        .watercolor-sunflower {
+            position: fixed;
+            width: 85px;
+            height: 85px;
+            opacity: 0.85;
+            z-index: 2;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.25));
+            animation: floatFlower 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatFlower {
+            0% { transform: translateY(0px) rotate(-15deg); }
+            100% { transform: translateY(-8px) rotate(-5deg); }
+        }
+
+        .wf-tl { top: 15px; left: 15px; }
+        .wf-tr { top: 15px; right: 15px; transform: scaleX(-1) rotate(-15deg); }
+        .wf-bl { bottom: 15px; left: 15px; transform: scaleY(-1) rotate(-15deg); }
+        .wf-br { bottom: 15px; right: 15px; transform: scale(-1, -1) rotate(-15deg); }
+
+        /* Chuva de pétalas douradas */
         .sunflower-rain {
             position: fixed;
             top: 0;
@@ -45,214 +72,319 @@
 
         .petal {
             position: absolute;
-            background: linear-gradient(135deg, #fef08a, #eab308);
+            background: linear-gradient(135deg, rgba(255, 229, 127, 0.85), rgba(212, 175, 55, 0.75));
             border-radius: 50% 0 50% 50%;
-            opacity: 0.7;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
             animation: fall linear infinite;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            20% { opacity: 0.9; }
-            100% {
-                transform: translateY(110vh) translateX(100px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.75; }
+            80% { opacity: 0.75; }
+            100% { transform: translateY(110vh) translateX(40px) rotate(360deg) scale(1.1); opacity: 0; }
         }
 
         .wrapper {
             position: relative;
             width: 100%;
-            max-width: 1100px;
-            min-height: 700px;
+            max-width: 410px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 16px;
             z-index: 5;
         }
 
-        /* Cartão Central Sofisticado com Efeito Neon Dourado Suave */
-        .message-card {
-            position: relative;
-            z-index: 10;
-            background: var(--card-glass);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            padding: 50px 45px;
-            border-radius: 30px;
+        /* Cartão de Pergunta Inicial */
+        .question-card {
+            background: var(--parchment);
+            border: 2px solid rgba(139, 94, 60, 0.25);
+            padding: 38px 25px;
+            border-radius: 25px;
             text-align: center;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(234, 179, 8, 0.1);
-            max-width: 650px;
-            animation: cardEntrance 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-shadow: 0 15px 35px rgba(80, 50, 20, 0.1), inset 0 0 40px rgba(212, 175, 55, 0.08);
+            width: 100%;
+            position: relative;
+            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        @keyframes cardEntrance {
-            from { opacity: 0; transform: translateY(40px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .card-sunflower-top, .message-sunflower {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 12px auto;
+            animation: pulseSpin 4s ease-in-out infinite;
+            filter: drop-shadow(0 3px 8px rgba(212, 175, 55, 0.3));
+        }
+
+        @keyframes pulseSpin {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.08) rotate(15deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .question-card h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        .question-card h2 span {
+            color: #b8860b;
+            font-weight: 600;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 55px;
+        }
+
+        .btn {
+            padding: 13px 30px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ffd700, #cca100);
+            color: #1a1500;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .btn-no {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-muted);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            position: absolute;
+            right: 25px;
+            transition: 0.12s ease-out;
+        }
+
+        /* Conteúdo Principal (Papel Queimado Antigo com Bordas Rasgadas) */
+        .main-content {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 16px;
+            animation: fadeInContent 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .message-card {
+            background-color: #f7f1e3;
+            /* Efeito visual de papel queimado antigo e bordas irregulares/rasgadas */
+            background-image: 
+                radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, rgba(220,205,175,0.4) 100%);
+            border: 3px dashed #8c6747;
+            padding: 38px 26px;
+            border-radius: 255px 25px 225px 25px/25px 225px 25px 255px; /* Bordas orgânicas simulando papel rasgado à mão */
+            text-align: center;
+            box-shadow: 
+                0 20px 45px rgba(60, 35, 15, 0.25), 
+                inset 0 0 50px rgba(110, 70, 35, 0.18),
+                0 0 15px rgba(90, 45, 10, 0.2); /* Sombra escura simulando queimado nas bordas */
+            width: 100%;
+            position: relative;
         }
 
         .tag {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--gold-accent);
-            margin-bottom: 20px;
+            letter-spacing: 4px;
+            color: #b8860b;
+            margin-bottom: 8px;
             font-weight: 700;
         }
 
-        h1 {
-            font-size: 2.3rem;
-            font-weight: 300;
+        .message-card h1 {
+            font-size: 1.45rem;
+            font-weight: 500;
             letter-spacing: -0.5px;
-            margin-bottom: 25px;
-            color: #fff;
+            margin-bottom: 16px;
+            color: var(--text-main);
             line-height: 1.3;
         }
 
-        h1 span {
-            color: var(--gold-accent);
+        .message-card h1 span {
+            color: #b8860b;
             font-weight: 600;
-            text-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
         }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.9;
+        .message-card p {
+            font-size: 0.92rem;
+            line-height: 1.75;
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             text-align: justify;
             text-align-last: center;
         }
 
-        /* Fotos Espalhadas Flutuando com Brilho */
-        .floating-photo {
-            position: absolute;
-            width: 135px;
-            height: 165px;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 2px solid rgba(250, 204, 21, 0.4);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            opacity: 0;
-            animation: photoFlyIn 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatAnim 6s ease-in-out infinite;
-            z-index: 6;
-        }
-
-        .floating-photo img {
-            width: 100%;
-            height: 100%;
+        /* FOTOS VOANDO PELA TELA */
+        .flying-photo {
+            position: fixed;
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border: 3px solid #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            z-index: 10;
+            pointer-events: auto;
+            cursor: pointer;
+            animation: flyAround 14s ease-in-out infinite alternate;
+            transition: transform 0.3s ease;
         }
 
-        .floating-photo:hover {
-            transform: scale(1.18) rotate(0deg) !important;
-            z-index: 25;
-            border-color: var(--gold-accent);
-            box-shadow: 0 20px 50px rgba(250, 204, 21, 0.4);
+        .flying-photo:hover {
+            transform: scale(1.3) rotate(0deg) !important;
+            z-index: 20;
         }
 
-        .floating-photo:hover img {
-            transform: scale(1.1);
+        /* Trajetórias aleatórias flutuantes para cada foto */
+        .fp-1 { top: 12%; left: 5%; animation-duration: 12s; transform: rotate(-12deg); }
+        .fp-2 { top: 15%; right: 6%; animation-duration: 15s; animation-delay: -2s; transform: rotate(10deg); }
+        .fp-3 { top: 48%; left: 3%; animation-duration: 11s; animation-delay: -4s; transform: rotate(8deg); }
+        .fp-4 { top: 52%; right: 4%; animation-duration: 16s; animation-delay: -1s; transform: rotate(-14deg); }
+        .fp-5 { bottom: 10%; left: 8%; animation-duration: 13s; animation-delay: -5s; transform: rotate(-8deg); }
+        .fp-6 { bottom: 12%; right: 8%; animation-duration: 14s; animation-delay: -3s; transform: rotate(12deg); }
+        .fp-7 { top: 32%; left: 50%; transform: translateX(-50%) rotate(3deg); animation-duration: 10s; animation-delay: -6s; }
+
+        @keyframes flyAround {
+            0% { transform: translateY(0px) translateX(0px) rotate(var(--rot, 0deg)); }
+            50% { transform: translateY(-22px) translateX(15px) rotate(calc(var(--rot, 0deg) + 8deg)); }
+            100% { transform: translateY(18px) translateX(-15px) rotate(calc(var(--rot, 0deg) - 8deg)); }
         }
 
-        /* Posições orgânicas para espalhar as 7 fotos ao redor sem cobrir o texto */
-        .photo-1 { top: 2%; left: 0%; animation-delay: 0.3s, 0s; transform: rotate(-7deg); }
-        .photo-2 { top: 0%; right: 2%; animation-delay: 0.5s, 1s; transform: rotate(6deg); width: 145px; height: 175px; }
-        .photo-3 { bottom: 5%; left: 1%; animation-delay: 0.7s, 2s; transform: rotate(5deg); width: 150px; height: 145px; }
-        .photo-4 { bottom: 2%; right: 2%; animation-delay: 0.9s, 1.5s; transform: rotate(-6deg); }
-        .photo-5 { top: 38%; left: -8%; animation-delay: 1.1s, 2.5s; transform: rotate(-9deg); width: 125px; height: 155px; }
-        .photo-6 { top: 35%; right: -8%; animation-delay: 1.3s, 0.8s; transform: rotate(8deg); width: 130px; height: 160px; }
-        .photo-7 { bottom: -12%; left: 40%; animation-delay: 1.5s, 1.8s; transform: rotate(2deg); width: 145px; height: 135px; }
-
-        @keyframes photoFlyIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.2) translate(0, 60px);
-                filter: blur(12px);
-            }
-            100% {
-                opacity: 1;
-                filter: blur(0);
-            }
+        /* Esconder fotos até o "Sim" ser clicado */
+        .flying-photos-container {
+            display: none;
         }
 
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
-            50% { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
-        }
-
-        /* Responsividade para celular */
-        @media (max-width: 900px) {
-            body { padding: 20px 10px; }
-            .wrapper { flex-direction: column; gap: 30px; }
-            .message-card { padding: 30px 20px; margin: 10px 0; }
-            h1 { font-size: 1.6rem; }
-            
-            .floating-photo {
-                position: relative;
-                width: 105px;
-                height: 130px;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-                bottom: auto !important;
-                transform: none !important;
-                animation: cardEntrance 1s ease forwards;
-            }
+        .flying-photos-container.active {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Efeito cinematográfico de pétalas/luzes douradas caindo -->
+    <!-- Girassóis em Aquarela nos Cantos -->
+    <svg class="watercolor-sunflower wf-tl" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="18" fill="#5c3812" opacity="0.9"/><circle cx="50" cy="50" r="14" fill="#8c581e" opacity="0.7"/>
+        <g fill="#f4c430" opacity="0.85"><ellipse cx="50" cy="20" rx="7" ry="16"/><ellipse cx="50" cy="80" rx="7" ry="16"/><ellipse cx="20" cy="50" rx="16" ry="7"/><ellipse cx="80" cy="50" rx="16" ry="7"/><ellipse cx="28" cy="28" rx="12" ry="7" transform="rotate(-45 28 28)"/><ellipse cx="72" cy="72" rx="12" ry="7" transform="rotate(-45 72 72)"/><ellipse cx="72" cy="28" rx="7" ry="12" transform="rotate(-45 72 28)"/><ellipse cx="28" cy="72" rx="7" ry="12" transform="rotate(-45 28 72)"/></g>
+    </svg>
+    <svg class="watercolor-sunflower wf-tr" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="18" fill="#5c3812" opacity="0.9"/><circle cx="50" cy="50" r="14" fill="#8c581e" opacity="0.7"/>
+        <g fill="#f4c430" opacity="0.85"><ellipse cx="50" cy="20" rx="7" ry="16"/><ellipse cx="50" cy="80" rx="7" ry="16"/><ellipse cx="20" cy="50" rx="16" ry="7"/><ellipse cx="80" cy="50" rx="16" ry="7"/><ellipse cx="28" cy="28" rx="12" ry="7" transform="rotate(-45 28 28)"/><ellipse cx="72" cy="72" rx="12" ry="7" transform="rotate(-45 72 72)"/><ellipse cx="72" cy="28" rx="7" ry="12" transform="rotate(-45 72 28)"/><ellipse cx="28" cy="72" rx="7" ry="12" transform="rotate(-45 28 72)"/></g>
+    </svg>
+    <svg class="watercolor-sunflower wf-bl" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="18" fill="#5c3812" opacity="0.9"/><circle cx="50" cy="50" r="14" fill="#8c581e" opacity="0.7"/>
+        <g fill="#f4c430" opacity="0.85"><ellipse cx="50" cy="20" rx="7" ry="16"/><ellipse cx="50" cy="80" rx="7" ry="16"/><ellipse cx="20" cy="50" rx="16" ry="7"/><ellipse cx="80" cy="50" rx="16" ry="7"/><ellipse cx="28" cy="28" rx="12" ry="7" transform="rotate(-45 28 28)"/><ellipse cx="72" cy="72" rx="12" ry="7" transform="rotate(-45 72 72)"/><ellipse cx="72" cy="28" rx="7" ry="12" transform="rotate(-45 72 28)"/><ellipse cx="28" cy="72" rx="7" ry="12" transform="rotate(-45 28 72)"/></g>
+    </svg>
+    <svg class="watercolor-sunflower wf-br" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="18" fill="#5c3812" opacity="0.9"/><circle cx="50" cy="50" r="14" fill="#8c581e" opacity="0.7"/>
+        <g fill="#f4c430" opacity="0.85"><ellipse cx="50" cy="20" rx="7" ry="16"/><ellipse cx="50" cy="80" rx="7" ry="16"/><ellipse cx="20" cy="50" rx="16" ry="7"/><ellipse cx="80" cy="50" rx="16" ry="7"/><ellipse cx="28" cy="28" rx="12" ry="7" transform="rotate(-45 28 28)"/><ellipse cx="72" cy="72" rx="12" ry="7" transform="rotate(-45 72 72)"/><ellipse cx="72" cy="28" rx="7" ry="12" transform="rotate(-45 72 28)"/><ellipse cx="28" cy="72" rx="7" ry="12" transform="rotate(-45 28 72)"/></g>
+    </svg>
+
+    <!-- Pétalas caindo -->
     <div class="sunflower-rain" id="rain-container"></div>
 
-    <div class="wrapper">
-        <!-- 7 Fotos Espalhadas -->
-        <div class="floating-photo photo-1" style="--rot: -7deg;"><img src="img/foto1.jpeg" alt="Foto"></div>
-        <div class="floating-photo photo-2" style="--rot: 6deg;"><img src="img/foto2.jpeg" alt="Foto"></div>
-        <div class="floating-photo photo-3" style="--rot: 5deg;"><img src="img/foto3.jpeg" alt="Foto"></div>
-        <div class="floating-photo photo-4" style="--rot: -6deg;"><img src="img/foto4.jpeg" alt="Foto"></div>
-        <div class="floating-photo photo-5" style="--rot: -9deg;"><img src="img/foto5.jpeg" alt="Foto"></div>
-        <div class="floating-photo photo-6" style="--rot: 8deg;"><img src="img/foto6.jpeg" alt="Foto"></div>
-        <div class="floating-photo photo-7" style="--rot: 2deg;"><img src="img/foto7.jpeg" alt="Foto"></div>
+    <!-- Fotos Voando pela Tela (Ativadas após clicar em Sim) -->
+    <div class="flying-photos-container" id="flyingPhotos">
+        <img src="img/foto1.jpeg" class="flying-photo fp-1" alt="Foto 1">
+        <img src="img/foto2.jpeg" class="flying-photo fp-2" alt="Foto 2">
+        <img src="img/foto3.jpeg" class="flying-photo fp-3" alt="Foto 3">
+        <img src="img/foto4.jpeg" class="flying-photo fp-4" alt="Foto 4">
+        <img src="img/foto5.jpeg" class="flying-photo fp-5" alt="Foto 5">
+        <img src="img/foto6.jpeg" class="flying-photo fp-6" alt="Foto 6">
+        <img src="img/foto7.jpeg" class="flying-photo fp-7" alt="Foto 7">
+    </div>
 
-        <!-- Mensagem Profunda, Emocionante e Marcante -->
-        <div class="message-card">
-            <span class="tag">Para o amor da minha vida</span>
-            <h1>Me perdoa. <span>Você é o meu norte.</span></h1>
-            <p>
-                Eu sei que por vezes falho, mas nada neste mundo se compara ao medo que tenho de te ver triste ou de me distanciar de quem eu mais amo. Quero te pedir perdão do fundo da minha alma por qualquer erro ou momento de desentendimento.
-            </p>
-            <p>
-                Se eu pudesse congelar o tempo, escolheria eternizar o brilho dos seus olhos claros e esse sorriso que tem o poder de consertar qualquer dia ruim meu. Você é o meu porto seguro, a paz que acalma o meu peito e a razão pela qual os girassóis fazem tanto sentido para nós: porque o meu mundo gira inteirinho ao redor da sua luz.
-            </p>
+    <div class="wrapper">
+        <!-- Pergunta Inicial -->
+        <div class="question-card" id="questionCard">
+            <svg class="card-sunflower-top" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="20" fill="#5c3812"/><circle cx="50" cy="50" r="15" fill="#8c581e" opacity="0.8"/>
+                <g fill="#ffd700" opacity="0.9"><ellipse cx="50" cy="16" rx="8" ry="18"/><ellipse cx="50" cy="84" rx="8" ry="18"/><ellipse cx="16" cy="50" rx="18" ry="8"/><ellipse cx="84" cy="50" rx="18" ry="8"/><ellipse cx="26" cy="26" rx="14" ry="8" transform="rotate(-45 26 26)"/><ellipse cx="74" cy="74" rx="14" ry="8" transform="rotate(-45 74 74)"/><ellipse cx="74" cy="26" rx="8" ry="14" transform="rotate(-45 74 26)"/><ellipse cx="26" cy="74" rx="8" ry="14" transform="rotate(-45 26 74)"/></g>
+            </svg>
+            <h2>Você ainda <span>me ama?</span></h2>
+            <div class="buttons-container" id="buttonsContainer">
+                <button class="btn btn-yes" onclick="sayYes()">Sim</button>
+                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()" ontouchstart="moveButton()" onclick="moveButton()">Não</button>
+            </div>
+        </div>
+
+        <!-- Bloco de Texto em Formato de Papel Queimado Antigo -->
+        <div class="main-content" id="mainContent">
+            <div class="message-card">
+                <svg class="message-sunflower" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="20" fill="#5c3812"/><circle cx="50" cy="50" r="15" fill="#8c581e" opacity="0.8"/>
+                    <g fill="#ffd700" opacity="0.9"><ellipse cx="50" cy="16" rx="8" ry="18"/><ellipse cx="50" cy="84" rx="8" ry="18"/><ellipse cx="16" cy="50" rx="18" ry="8"/><ellipse cx="84" cy="50" rx="18" ry="8"/><ellipse cx="26" cy="26" rx="14" ry="8" transform="rotate(-45 26 26)"/><ellipse cx="74" cy="74" rx="14" ry="8" transform="rotate(-45 74 74)"/><ellipse cx="74" cy="26" rx="8" ry="14" transform="rotate(-45 74 26)"/><ellipse cx="26" cy="74" rx="8" ry="14" transform="rotate(-45 26 74)"/></g>
+                </svg>
+                <span class="tag">Para o amor da minha vida</span>
+                <h1>Me perdoa. <span>Você é o meu norte.</span></h1>
+                <p>
+                    Eu sei que por vezes falho, mas nada neste mundo se compara ao medo que tenho de te ver triste ou de me distanciar de quem eu mais amo. Quero te pedir perdão do fundo da minha alma por qualquer erro ou momento de desentendimento.
+                </p>
+                <p>
+                    Se eu pudesse congelar o tempo, escolheria eternizar o brilho dos seus olhos claros e esse sorriso que tem o poder de consertar qualquer dia ruim meu. Você é o meu porto seguro, a paz que acalma o meu peito e a razão pela qual os girassóis fazem tanto sentido para nós: porque o meu mundo gira inteirinho ao redor da sua luz.
+                </p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Gerador automático do efeito de pétalas/luzes douradas caindo na tela
-        const container = document.getElementById('rain-container');
-        const petalCount = 25;
+        // Botão fugitivo
+        function moveButton() {
+            const btnNo = document.getElementById('btnNo');
+            const randomX = (Math.random() - 0.5) * 170;
+            const randomY = (Math.random() - 0.5) * 110;
+            btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
 
-        for (let i = 0; i < petalCount; i++) {
+        // Ao clicar em Sim: Revela o pergaminho queimado e faz as fotos voarem
+        function sayYes() {
+            const questionCard = document.getElementById('questionCard');
+            const mainContent = document.getElementById('mainContent');
+            const flyingPhotos = document.getElementById('flyingPhotos');
+            
+            questionCard.style.transform = 'scale(0.8)';
+            questionCard.style.opacity = '0';
+            
+            setTimeout(() => {
+                questionCard.style.display = 'none';
+                mainContent.style.display = 'flex';
+                flyingPhotos.classList.add('active');
+            }, 400);
+        }
+
+        // Chuva de pétalas
+        const container = document.getElementById('rain-container');
+        for (let i = 0; i < 20; i++) {
             const petal = document.createElement('div');
             petal.className = 'petal';
-            
-            // Tamanhos variados para dar profundidade em 3D
-            const size = Math.random() * 14 + 8;
+            const size = Math.random() * 10 + 6;
             petal.style.width = size + 'px';
-            petal.style.height = (size * 1.5) + 'px';
-            
+            petal.style.height = (size * 1.6) + 'px';
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = (Math.random() * 5 + 4) + 's';
+            petal.style.animationDuration = (Math.random() * 4 + 3) + 's';
             petal.style.animationDelay = (Math.random() * 5) + 's';
-            
             container.appendChild(petal);
         }
     </script>
