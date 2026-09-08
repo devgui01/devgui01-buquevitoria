@@ -173,7 +173,7 @@
             transition: 0.12s ease-out;
         }
 
-        /* Conteúdo Principal (Papel Queimado Antigo com Bordas Rasgadas) */
+        /* Conteúdo Principal */
         .main-content {
             display: none;
             width: 100%;
@@ -189,17 +189,16 @@
 
         .message-card {
             background-color: #f7f1e3;
-            /* Efeito visual de papel queimado antigo e bordas irregulares/rasgadas */
             background-image: 
                 radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, rgba(220,205,175,0.4) 100%);
             border: 3px dashed #8c6747;
             padding: 38px 26px;
-            border-radius: 255px 25px 225px 25px/25px 225px 25px 255px; /* Bordas orgânicas simulando papel rasgado à mão */
+            border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
             text-align: center;
             box-shadow: 
                 0 20px 45px rgba(60, 35, 15, 0.25), 
                 inset 0 0 50px rgba(110, 70, 35, 0.18),
-                0 0 15px rgba(90, 45, 10, 0.2); /* Sombra escura simulando queimado nas bordas */
+                0 0 15px rgba(90, 45, 10, 0.2);
             width: 100%;
             position: relative;
         }
@@ -236,15 +235,15 @@
             text-align-last: center;
         }
 
-        /* FOTOS VOANDO PELA TELA */
+        /* FOTOS VOANDO PELA TELA - Ajustadas para não invadir o centro */
         .flying-photo {
             position: fixed;
-            width: 90px;
-            height: 90px;
-            border-radius: 12px;
+            width: 70px; /* Reduzidas levemente para mobile */
+            height: 70px;
+            border-radius: 10px;
             object-fit: cover;
             border: 3px solid #fff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             z-index: 10;
             pointer-events: auto;
             cursor: pointer;
@@ -257,22 +256,21 @@
             z-index: 20;
         }
 
-        /* Trajetórias aleatórias flutuantes para cada foto */
-        .fp-1 { top: 12%; left: 5%; animation-duration: 12s; transform: rotate(-12deg); }
-        .fp-2 { top: 15%; right: 6%; animation-duration: 15s; animation-delay: -2s; transform: rotate(10deg); }
-        .fp-3 { top: 48%; left: 3%; animation-duration: 11s; animation-delay: -4s; transform: rotate(8deg); }
-        .fp-4 { top: 52%; right: 4%; animation-duration: 16s; animation-delay: -1s; transform: rotate(-14deg); }
-        .fp-5 { bottom: 10%; left: 8%; animation-duration: 13s; animation-delay: -5s; transform: rotate(-8deg); }
-        .fp-6 { bottom: 12%; right: 8%; animation-duration: 14s; animation-delay: -3s; transform: rotate(12deg); }
-        .fp-7 { top: 32%; left: 50%; transform: translateX(-50%) rotate(3deg); animation-duration: 10s; animation-delay: -6s; }
+        /* Posicionamento seguro nas extremidades para telas pequenas */
+        .fp-1 { top: 8%; left: 3%; animation-duration: 12s; transform: rotate(-12deg); }
+        .fp-2 { top: 8%; right: 3%; animation-duration: 15s; animation-delay: -2s; transform: rotate(10deg); }
+        .fp-3 { top: 40%; left: 2%; animation-duration: 11s; animation-delay: -4s; transform: rotate(8deg); }
+        .fp-4 { top: 40%; right: 2%; animation-duration: 16s; animation-delay: -1s; transform: rotate(-14deg); }
+        .fp-5 { bottom: 6%; left: 4%; animation-duration: 13s; animation-delay: -5s; transform: rotate(-8deg); }
+        .fp-6 { bottom: 6%; right: 4%; animation-duration: 14s; animation-delay: -3s; transform: rotate(12deg); }
+        .fp-7 { top: 2%; left: 50%; transform: translateX(-50%) rotate(3deg); animation-duration: 10s; animation-delay: -6s; width: 60px; height: 60px; }
 
         @keyframes flyAround {
             0% { transform: translateY(0px) translateX(0px) rotate(var(--rot, 0deg)); }
-            50% { transform: translateY(-22px) translateX(15px) rotate(calc(var(--rot, 0deg) + 8deg)); }
-            100% { transform: translateY(18px) translateX(-15px) rotate(calc(var(--rot, 0deg) - 8deg)); }
+            50% { transform: translateY(-12px) translateX(8px) rotate(calc(var(--rot, 0deg) + 5deg)); }
+            100% { transform: translateY(10px) translateX(-8px) rotate(calc(var(--rot, 0deg) - 5deg)); }
         }
 
-        /* Esconder fotos até o "Sim" ser clicado */
         .flying-photos-container {
             display: none;
         }
@@ -305,7 +303,7 @@
     <!-- Pétalas caindo -->
     <div class="sunflower-rain" id="rain-container"></div>
 
-    <!-- Fotos Voando pela Tela (Ativadas após clicar em Sim) -->
+    <!-- Fotos Voando pela Tela -->
     <div class="flying-photos-container" id="flyingPhotos">
         <img src="img/foto1.jpeg" class="flying-photo fp-1" alt="Foto 1">
         <img src="img/foto2.jpeg" class="flying-photo fp-2" alt="Foto 2">
@@ -323,14 +321,14 @@
                 <circle cx="50" cy="50" r="20" fill="#5c3812"/><circle cx="50" cy="50" r="15" fill="#8c581e" opacity="0.8"/>
                 <g fill="#ffd700" opacity="0.9"><ellipse cx="50" cy="16" rx="8" ry="18"/><ellipse cx="50" cy="84" rx="8" ry="18"/><ellipse cx="16" cy="50" rx="18" ry="8"/><ellipse cx="84" cy="50" rx="18" ry="8"/><ellipse cx="26" cy="26" rx="14" ry="8" transform="rotate(-45 26 26)"/><ellipse cx="74" cy="74" rx="14" ry="8" transform="rotate(-45 74 74)"/><ellipse cx="74" cy="26" rx="8" ry="14" transform="rotate(-45 74 26)"/><ellipse cx="26" cy="74" rx="8" ry="14" transform="rotate(-45 26 74)"/></g>
             </svg>
-            <h2>Você ainda <span>me ama?</span></h2>
+            <h2>Eu ainda te amo<span></span></h2>
             <div class="buttons-container" id="buttonsContainer">
-                <button class="btn btn-yes" onclick="sayYes()">Sim</button>
-                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()" ontouchstart="moveButton()" onclick="moveButton()">Não</button>
+                <button class="btn btn-yes" onclick="sayYes()">ver</button>
+                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()" ontouchstart="moveButton()" onclick="moveButton()">Te odeio</button>
             </div>
         </div>
 
-        <!-- Bloco de Texto em Formato de Papel Queimado Antigo -->
+        <!-- Bloco de Texto -->
         <div class="main-content" id="mainContent">
             <div class="message-card">
                 <svg class="message-sunflower" viewBox="0 0 100 100">
@@ -338,7 +336,7 @@
                     <g fill="#ffd700" opacity="0.9"><ellipse cx="50" cy="16" rx="8" ry="18"/><ellipse cx="50" cy="84" rx="8" ry="18"/><ellipse cx="16" cy="50" rx="18" ry="8"/><ellipse cx="84" cy="50" rx="18" ry="8"/><ellipse cx="26" cy="26" rx="14" ry="8" transform="rotate(-45 26 26)"/><ellipse cx="74" cy="74" rx="14" ry="8" transform="rotate(-45 74 74)"/><ellipse cx="74" cy="26" rx="8" ry="14" transform="rotate(-45 74 26)"/><ellipse cx="26" cy="74" rx="8" ry="14" transform="rotate(-45 26 74)"/></g>
                 </svg>
                 <span class="tag">Para o amor da minha vida</span>
-                <h1>Me perdoa. <span>Você é o meu norte.</span></h1>
+                <h1>Meu bem me perdoa. <span>Você é o meu norte.</span></h1>
                 <p>
                     Eu sei que por vezes falho, mas nada neste mundo se compara ao medo que tenho de te ver triste ou de me distanciar de quem eu mais amo. Quero te pedir perdão do fundo da minha alma por qualquer erro ou momento de desentendimento.
                 </p>
@@ -350,7 +348,6 @@
     </div>
 
     <script>
-        // Botão fugitivo
         function moveButton() {
             const btnNo = document.getElementById('btnNo');
             const randomX = (Math.random() - 0.5) * 170;
@@ -358,7 +355,6 @@
             btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
-        // Ao clicar em Sim: Revela o pergaminho queimado e faz as fotos voarem
         function sayYes() {
             const questionCard = document.getElementById('questionCard');
             const mainContent = document.getElementById('mainContent');
@@ -374,7 +370,6 @@
             }, 400);
         }
 
-        // Chuva de pétalas
         const container = document.getElementById('rain-container');
         for (let i = 0; i < 20; i++) {
             const petal = document.createElement('div');
